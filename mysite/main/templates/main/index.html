@@ -1,0 +1,10 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="{% url 'medications' %}">Лекарства</a></li>
+        <li><a href="{% url 'diseases' %}">Болезни</a></li>
+        <li><a href="{% url 'symptoms' %}">Симптомы</a></li>
+    </ul>
+</nav>
+{% endblock %}
