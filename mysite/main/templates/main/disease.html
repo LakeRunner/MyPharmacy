@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <div class="content-container">
+        <h1>{{ name }}</h1>
+        <p class="description">{{ description }}</p>
+
+        <h2>Сопутствующие симптомы:</h2>
+        <ul>
+            {% for symptom in symptoms %}
+                <li>{{ symptom.symptom_name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Лекарства от этой болезни:</h2>
+        <ul>
+            {% for medication in medications %}
+                <li>{{ medication.medication_name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{% url 'diseases' %}" class="return-home">Назад</a>
+{% endblock %}
