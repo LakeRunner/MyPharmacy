@@ -39,21 +39,16 @@ def diseases(request):
 
 def disease(request, disease_id):
     dis = get_object_or_404(Diseases, disease_id=disease_id)
-    sym = []
-    med = []
+    med = set()
+    sym = set()
     medication_links = MedicationDiseaseLink.objects.all()
     symptom_links = DiseaseSymptomLink.objects.all()
-    print(medication_links)
-    print(symptom_links)
-    #for i in medication_links:
-    #    if i.disease == disease_id:
-    #        med.append(get_object_or_404(Medications, medication_id=i.medication))
-    #for i in symptom_links:
-    #    if i.disease == disease_id:
-    #        sym.append(get_object_or_404(Symptoms, sumptom_id=i.symptom))
-
-    #med = [link.medication for link in medication_links]
-    #sym = [link.symptom for link in symptom_links]
+    for i in medication_links:
+        if i.disease.disease_id == disease_id:
+            med.add(get_object_or_404(Medications, medication_id=i.medication.medication_id).medication_name)
+    for i in symptom_links:
+        if i.disease.disease_id == disease_id:
+            sym.add(get_object_or_404(Symptoms, symptom_id=i.symptom.symptom_id).symptom_name)
 
     data = {
         'title': 'Информация о болезни',
