@@ -6,6 +6,9 @@ class Diseases(models.Model):
     disease_name = models.CharField(max_length=255, blank=True, null=True)
     disease_description = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return self.disease_name
+
     class Meta:
         verbose_name = 'Болезнь'
         verbose_name_plural = 'Болезни'
@@ -17,6 +20,9 @@ class Symptoms(models.Model):
     symptom_id = models.AutoField(primary_key=True)
     symptom_name = models.CharField(unique=True, max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.symptom_name
+
     class Meta:
         verbose_name = 'Симптом'
         verbose_name_plural = 'Симптомы'
@@ -27,6 +33,9 @@ class Symptoms(models.Model):
 class DiseaseSymptomLink(models.Model):
     disease = models.ForeignKey(Diseases, on_delete=models.CASCADE, primary_key=True)
     symptom = models.ForeignKey(Symptoms, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.disease) + " | " + str(self.symptom)
 
     class Meta:
         verbose_name = 'Связь болезни и симптома'
@@ -42,6 +51,9 @@ class Medications(models.Model):
     expiration_date = models.DateField(blank=True, null=True)
     medication_description = models.TextField(blank=True, null=True)
 
+    def __str__(self):
+        return self.medication_name
+
     class Meta:
         verbose_name = 'Лекарство'
         verbose_name_plural = 'Лекарства'
@@ -52,6 +64,9 @@ class Medications(models.Model):
 class MedicationDiseaseLink(models.Model):
     medication = models.ForeignKey(Medications, on_delete=models.CASCADE, primary_key=True)
     disease = models.ForeignKey(Diseases, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.medication) + " | " + str(self.disease)
 
     class Meta:
         verbose_name = 'Связь лекарства и болезни'
