@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Medications, Diseases, Symptoms, MedicationDiseaseLink, DiseaseSymptomLink
 
 
 def index(request):
@@ -9,21 +10,60 @@ def index(request):
 
 
 def medications(request):
+    med = list(enumerate(Medications.objects.all(), start=1))
     data = {
-        'title': 'Лекарства'
+        'title': 'Лекарства',
+        'medications': med,
     }
     return render(request, 'main/medications.html', data)
 
 
-def diseases(request):
+def medication(request, medication_id):
+    med = get_object_or_404(Medications, medication_id=medication_id)
     data = {
-        'title': 'Болезни'
+        'title': 'Информация о лекарстве',
+        'name': med.medication_name,
+        'description': med.medication_description,
+    }
+    return render(request, 'main/medication.html', data)
+
+
+def diseases(request):
+    dis = list(enumerate(Diseases.objects.all(), start=1))
+    data = {
+        'title': 'Болезни',
+        'diseases': dis,
     }
     return render(request, 'main/diseases.html', data)
 
 
-def symptoms(request):
+def disease(request, disease_id):
+    dis = get_object_or_404(Diseases, disease_id=disease_id)
+    med = set()
+    sym = set()
+    medication_links = MedicationDiseaseLink.objects.all()
+    symptom_links = DiseaseSymptomLink.objects.all()
+    for i in medication_links:
+        if i.disease.disease_id == disease_id:
+            med.add(get_object_or_404(Medications, medication_id=i.medication.medication_id).medication_name)
+    for i in symptom_links:
+        if i.disease.disease_id == disease_id:
+            sym.add(get_object_or_404(Symptoms, symptom_id=i.symptom.symptom_id).symptom_name)
+
     data = {
-        'title': 'Симптомы'
+        'title': 'Информация о болезни',
+        'name': dis.disease_name,
+        'description': dis.disease_description,
+        'symptoms': sym,
+        'medications': med,
+    }
+    return render(request, 'main/disease.html', data)
+
+
+def symptoms(request):
+    sym = list(enumerate(Symptoms.objects.all(), start=1))
+    data = {
+        'title': 'Симптомы',
+        'symptoms': sym,
     }
     return render(request, 'main/symptoms.html', data)

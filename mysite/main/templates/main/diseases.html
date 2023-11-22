@@ -1,3 +1,23 @@
 {% extends 'main/layout.html' %}
 {% block content %}
+    <p></p>
+    <div class="flex-container">
+        <a href="{% url 'home' %}" class="return-home">Вернуться на главную</a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Название болезни</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, disease in diseases %}
+                    <tr>
+                        <td>{{ index }}</td>
+                        <td><a href="{% url 'disease' disease.disease_id %}">{{ disease.disease_name }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

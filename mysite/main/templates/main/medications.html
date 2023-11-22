@@ -1,3 +1,25 @@
 {% extends 'main/layout.html' %}
 {% block content %}
+    <p></p>
+    <div class="flex-container">
+        <a href="{% url 'home' %}" class="return-home">Вернуться на главную</a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Название лекарства</th>
+                    <th>Срок годности</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, medication in medications %}
+                    <tr>
+                        <td>{{ index }}</td>
+                        <td><a href="{% url 'medication' medication.medication_id %}">{{ medication.medication_name }}</a></td>
+                        <td>{{ medication.expiration_date|date:"F d, Y" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

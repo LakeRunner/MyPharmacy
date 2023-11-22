@@ -1,0 +1,9 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <div class="content-container">
+        <h1>{{ name }}</h1>
+        <p class="description">{{ description }}</p>
+    </div>
+    <a href="{% url 'medications' %}" class="return-home">Назад</a>
+{% endblock %}

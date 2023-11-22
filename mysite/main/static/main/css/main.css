@@ -3,6 +3,14 @@
     --secondary-color: #fff;
 }
 
+.content-container {
+    margin: 14px;
+}
+
+.description {
+    font-size: 20px;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -25,35 +33,43 @@ header h1 {
 }
 
 nav {
-    margin-top: 10px;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh; /* 100% высоты видимой области экрана */
 }
 
-ul {
+nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+}
+
+nav ul li:first-child {
+    margin-left: -4%; /* Добавляем отрицательное значение для выравнивания самой левой кнопки */
 }
 
 nav ul li {
-    margin-bottom: 10px;
+    margin-right: 4%;
 }
 
 nav a {
     text-decoration: none;
     color: var(--primary-color);
     font-weight: bold;
-    font-size: 18px;
-    display: block;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
+    font-size: 24px;
+    width: 170px; /* Ширина квадрата */
+    height: 170px; /* Высота квадрата */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 nav a:hover {
-    text-decoration: underline;
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
@@ -64,4 +80,65 @@ h2 {
 
 form {
     margin-top: 10px;
+}
+
+table {
+    font-size: 20px;
+    border-collapse: collapse;
+    width: 60%;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+td:first-child {
+    width: 5%;
+}
+
+td:nth-child(3) {
+    width: 200px;
+}
+
+tr:hover td {
+    background-color: #e0e0e0;
+}
+
+.return-home {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.return-home:hover {
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #004080;
 }
