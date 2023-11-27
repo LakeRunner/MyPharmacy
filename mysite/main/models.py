@@ -3,7 +3,7 @@ from django.db import models
 
 class Diseases(models.Model):
     disease_id = models.AutoField(primary_key=True)
-    disease_name = models.CharField(max_length=255, blank=True, null=True)
+    disease_name = models.CharField(unique=True, max_length=255, blank=True, null=True)
     disease_description = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -31,11 +31,11 @@ class Symptoms(models.Model):
 
 
 class DiseaseSymptomLink(models.Model):
-    disease = models.ForeignKey(Diseases, on_delete=models.CASCADE, primary_key=True)
-    symptom = models.ForeignKey(Symptoms, on_delete=models.CASCADE)
+    disease = models.OneToOneField('Diseases', on_delete=models.CASCADE, primary_key=True)
+    symptom = models.ForeignKey('Symptoms', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.disease) + " | " + str(self.symptom)
+        return f"{self.disease} | {self.symptom}"
 
     class Meta:
         verbose_name = 'Связь болезни и симптома'
@@ -62,11 +62,11 @@ class Medications(models.Model):
 
 
 class MedicationDiseaseLink(models.Model):
-    medication = models.ForeignKey(Medications, on_delete=models.CASCADE, primary_key=True)
-    disease = models.ForeignKey(Diseases, on_delete=models.CASCADE)
+    medication = models.OneToOneField('Medications', on_delete=models.CASCADE, primary_key=True)
+    disease = models.ForeignKey('Diseases', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.medication) + " | " + str(self.disease)
+        return f"{self.medication} | {self.disease}"
 
     class Meta:
         verbose_name = 'Связь лекарства и болезни'

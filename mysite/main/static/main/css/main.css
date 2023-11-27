@@ -110,37 +110,55 @@ table {
     border-collapse: collapse;
     width: 60%;
     margin: 0 auto;
+    border: none;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 5px;
-    text-align: left;
-}
-
-th {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    text-align: center;
+    border: none;
 }
 
 td:first-child {
     width: 5%;
 }
 
+td:nth-child(2) {
+    width: 37%;
+}
+
 td:nth-child(3) {
-    width: 200px;
+    width: 30%;
+}
+
+td:nth-child(4) {
+    width: 35%;
+}
+
+tr {
+    border-bottom: 1px solid #666;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-bottom: none;
 }
 
 tr:hover td {
     background-color: #e0e0e0;
 }
 
-.return-home {
+.home-button {
     display: inline-block;
     margin-right: 10px;
     margin-left: 10px;
-    margin-bottom: 10px;
-    padding: 10px 20px;
+    margin-bottom: 10px; padding: 10px 10px 10px 10px;
+    background-image: url('../img/house.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
     background-color: var(--primary-color);
     color: #fff;
     text-decoration: none;
@@ -152,7 +170,116 @@ tr:hover td {
     cursor: pointer;
 }
 
-.return-home:hover {
+.home-button:hover {
+    background-image: url('../img/house_active.png');
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.add-button {
+    text-align: right;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 13px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    background-image: url('../img/plus.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-image: url('../img/plus_active.png');
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.back-button {
+    text-align: right;
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 13px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    background-image: url('../img/back.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-image: url('../img/back_active.png');
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.change-button {
+    text-align: right;
+    display: inline-block;
+    margin-right: 5px;
+    padding: 10px 10px 10px 10px;
+    background-image: url('../img/pencil.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.change-button:hover {
+    background-image: url('../img/pencil_active.png');
+    background-color: #fff;
+    color: var(--primary-color);
+}
+
+.delete-button {
+    text-align: right;
+    display: inline-block;
+    margin-right: 5px;
+    padding: 10px 10px 10px 10px;
+    background-image: url('../img/garbage.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-image: url('../img/garbage_active.png');
     background-color: #fff;
     color: var(--primary-color);
 }

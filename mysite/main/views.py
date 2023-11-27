@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Medications, Diseases, Symptoms, MedicationDiseaseLink, DiseaseSymptomLink
 
 
@@ -26,6 +26,21 @@ def medication(request, medication_id):
         'description': med.medication_description,
     }
     return render(request, 'main/medication.html', data)
+
+
+def edit_medication(request, pk):
+    pass
+
+
+def delete_medication(request, pk):
+    med = get_object_or_404(Medications, pk=pk)
+    MedicationDiseaseLink.objects.filter(medication=med).delete()
+    med.delete()
+    return redirect('medications')
+
+
+def add_medication(request):
+    pass
 
 
 def diseases(request):
@@ -60,6 +75,18 @@ def disease(request, disease_id):
     return render(request, 'main/disease.html', data)
 
 
+def edit_disease(request, pk):
+    pass
+
+
+def delete_disease(request, pk):
+    pass
+
+
+def add_disease(request):
+    pass
+
+
 def symptoms(request):
     sym = list(enumerate(Symptoms.objects.all(), start=1))
     data = {
@@ -67,3 +94,15 @@ def symptoms(request):
         'symptoms': sym,
     }
     return render(request, 'main/symptoms.html', data)
+
+
+def edit_symptom(request, pk):
+    pass
+
+
+def delete_symptom(request, pk):
+    pass
+
+
+def add_symptom(request):
+    pass
