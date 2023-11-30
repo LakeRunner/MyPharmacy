@@ -29,14 +29,27 @@ def medication(request, medication_id):
 
 
 def edit_medication(request, pk):
-    pass
+    med = get_object_or_404(Medications, pk=pk)
+    data = {'title': 'Изменить лекарство',
+            'medication': med}
+    if request.method == 'POST':
+        med.medication_name = request.POST['medication_name']
+        med.expiration_date = request.POST['expiration_date']
+        med.medication_description = request.POST['medication_description']
+        med.save()
+        return redirect('medications')
+    return render(request, 'main/edit_medication.html', data)
 
 
 def delete_medication(request, pk):
     med = get_object_or_404(Medications, pk=pk)
-    MedicationDiseaseLink.objects.filter(medication=med).delete()
-    med.delete()
-    return redirect('medications')
+    data = {'medication': med,
+            'title': 'Удаление лекарства'}
+    if request.method == 'POST':
+        MedicationDiseaseLink.objects.filter(medication=med).delete()
+        med.delete()
+        return redirect('medications')
+    return render(request, 'main/delete_medication.html', data)
 
 
 def add_medication(request):
@@ -76,11 +89,27 @@ def disease(request, disease_id):
 
 
 def edit_disease(request, pk):
-    pass
+    dis = get_object_or_404(Diseases, pk=pk)
+    data = {'title': 'Изменить болезнь',
+            'disease': dis}
+    if request.method == 'POST':
+        dis.disease_name = request.POST['disease_name']
+        dis.disease_description = request.POST['disease_description']
+        dis.save()
+        return redirect('diseases')
+    return render(request, 'main/edit_disease.html', data)
 
 
 def delete_disease(request, pk):
-    pass
+    dis = get_object_or_404(Diseases, pk=pk)
+    data = {'disease': dis,
+            'title': 'Удаление болезни'}
+    if request.method == 'POST':
+        MedicationDiseaseLink.objects.filter(disease=dis).delete()
+        DiseaseSymptomLink.objects.filter(disease=dis).delete()
+        dis.delete()
+        return redirect('diseases')
+    return render(request, 'main/delete_disease.html', data)
 
 
 def add_disease(request):
@@ -97,11 +126,25 @@ def symptoms(request):
 
 
 def edit_symptom(request, pk):
-    pass
+    sym = get_object_or_404(Symptoms, pk=pk)
+    data = {'title': 'Изменить симптом',
+            'symptom': sym}
+    if request.method == 'POST':
+        sym.symptom_name = request.POST['symptom_name']
+        sym.save()
+        return redirect('symptoms')
+    return render(request, 'main/edit_symptom.html', data)
 
 
 def delete_symptom(request, pk):
-    pass
+    sym = get_object_or_404(Symptoms, pk=pk)
+    data = {'symptom': sym,
+            'title': 'Удаление симптома'}
+    if request.method == 'POST':
+        DiseaseSymptomLink.objects.filter(symptom=sym).delete()
+        sym.delete()
+        return redirect('symptoms')
+    return render(request, 'main/delete_symptom.html', data)
 
 
 def add_symptom(request):

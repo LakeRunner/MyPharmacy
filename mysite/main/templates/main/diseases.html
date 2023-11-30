@@ -18,8 +18,8 @@
                         <td>{{ index }}</td>
                         <td><a href="{% url 'disease' disease.disease_id %}">{{ disease.disease_name }}</a></td>
                         <td>
-                            <a href="{% url 'edit_diease' disease.disease_id %}" class="change-button">Изменить</a>
-                            <a href="{% url 'delete_diease' disease.disease_id %}" class="delete-button">Удалить</a>
+                            <a href="{% url 'edit_disease' disease.disease_id %}" class="change-button">Изменить</a>
+                            <a href="{% url 'delete_disease' disease.disease_id %}" class="delete-button">Удалить</a>
                         </td>
                     </tr>
                 {% endfor %}

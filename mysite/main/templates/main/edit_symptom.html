@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
+    <form method="post" action="{% url 'edit_symptom' pk=symptom.pk %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="symptom_name">Название симптома:</label>
+            <input type="text" id="symptom_name" name="symptom_name" value="{{ symptom.symptom_name }}" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="accept-button">Сохранить изменения</button>
+            <a href="{% url 'symptoms' %}" class="accept-button">Отменить</a>
+        </div>
+    </form>
+{% endblock %}

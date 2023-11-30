@@ -1,0 +1,40 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
+    <div class="content-container">
+        <p></p>
+        <h2> Вы уверены, что хотите удалить запись о симптоме "{{symptom.symptom_name}}"?</h2>
+
+        <div class="flex-container">
+            <form method="post" action="{% url 'delete_symptom' pk=symptom.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="accept-button">Подтвердить</button>
+                <a href="{% url 'symptoms' %}" class="accept-button">Отмена</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete() {
+            if (confirm('Вы точно хотите удалить запись об этом симптоме?')) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{% url "delete_symptom" pk=symptom.pk %}', true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message);
+                        window.location.href = '{% url "symptoms" %}';
+                    } else {
+                        alert('Произошла ошибка при удалении симптома.');
+                    }
+                };
+                xhr.onerror = function() {
+                    alert('Произошла ошибка при удалении симптома.');
+                };
+                xhr.send();
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
+    <form method="post" action="{% url 'edit_disease' pk=disease.pk %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="disease_name">Название болезни:</label>
+            <input type="text" id="disease_name" name="disease_name" value="{{ disease.disease_name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="disease_description">Описание болезни:</label>
+            <textarea id="disease_description" name="disease_description" rows="5" required>{{ disease.disease_description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="accept-button">Сохранить изменения</button>
+            <a href="{% url 'diseases' %}" class="accept-button">Отменить</a>
+        </div>
+    </form>
+{% endblock %}
