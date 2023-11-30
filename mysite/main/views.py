@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Medications, Diseases, Symptoms, MedicationDiseaseLink, DiseaseSymptomLink
+from .forms import *
 
 
 def index(request):
@@ -53,7 +54,15 @@ def delete_medication(request, pk):
 
 
 def add_medication(request):
-    pass
+    if request.method == 'POST':
+        form = MedicationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('medications')
+    else:
+        form = MedicationForm()
+
+    return render(request, 'main/add_medication.html', {'form': form, 'title': 'Добавить лекарство'})
 
 
 def diseases(request):
@@ -113,7 +122,15 @@ def delete_disease(request, pk):
 
 
 def add_disease(request):
-    pass
+    if request.method == 'POST':
+        form = DiseaseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('diseases')
+    else:
+        form = DiseaseForm()
+
+    return render(request, 'main/add_disease.html', {'form': form, 'title': 'Добавить болезнь'})
 
 
 def symptoms(request):
@@ -148,4 +165,12 @@ def delete_symptom(request, pk):
 
 
 def add_symptom(request):
-    pass
+    if request.method == 'POST':
+        form = SymptomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('symptoms')
+    else:
+        form = SymptomForm()
+
+    return render(request, 'main/add_symptom.html', {'form': form, 'title': 'Добавить симптом'})
