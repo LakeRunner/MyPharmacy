@@ -2,8 +2,8 @@
 {% block content %}
     <p></p>
     <div class="flex-container">
-        <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
-        <a href="{% url 'add_medication' %}" class="add-button">Добавить</a>
+        <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
+        <a href="{% url 'add_medication' %}" class="common-button add-button">Добавить</a>
         <table border="1">
             <thead>
                 <tr>
@@ -20,8 +20,8 @@
                         <td><a href="{% url 'medication' medication.medication_id %}">{{ medication.medication_name }}</a></td>
                         <td>{{ medication.expiration_date|date:"F d, Y" }}</td>
                         <td>
-                            <a href="{% url 'edit_medication' medication.medication_id %}" class="change-button">Изменить</a>
-                            <a href="{% url 'delete_medication' medication.medication_id %}" class="delete-button">Удалить</a>
+                            <a href="{% url 'edit_medication' medication.medication_id %}" class="common-button change-button">Изменить</a>
+                            <a href="{% url 'delete_medication' medication.medication_id %}" class="common-button delete-button">Удалить</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -2,8 +2,7 @@
 {% block content %}
     <p></p>
     <div class="content-container">
-        <h1>{{ name }}</h1>
-        <p class="description">{{ description }}</p>
+        <h1>{{ medication.medication_name }}</h1>
+        <p class="description">{{ medication.medication_description }}</p>
     </div>
-    <a href="{% url 'medications' %}" class="back-button">Назад</a>
 {% endblock %}

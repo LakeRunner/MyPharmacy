@@ -1,13 +1,14 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <p></p>
-    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <form class="form-group" method="post" action="{% url 'add_disease' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>{{ form.disease_name }}</div>
+        <div>{{ form.disease_description }}</div>
+        <span>{{ error }}</span>
         <div class="form-group">
-            <button type="submit" class="accept-button">Добавить</button>
-            <a href="{% url 'diseases' %}" class="accept-button">Отменить</a>
+            <button type="submit" class="common-button">Сохранить запись</button>
         </div>
     </form>
 {% endblock %}

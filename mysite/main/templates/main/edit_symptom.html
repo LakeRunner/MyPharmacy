@@ -1,17 +1,13 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <p></p>
-    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
-    <form method="post" action="{% url 'edit_symptom' pk=symptom.pk %}">
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
+    <form method="post" action="{% url 'edit_symptom' pk=object.pk %}">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="symptom_name">Название симптома:</label>
-            <input type="text" id="symptom_name" name="symptom_name" value="{{ symptom.symptom_name }}" required>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="accept-button">Сохранить изменения</button>
-            <a href="{% url 'symptoms' %}" class="accept-button">Отменить</a>
+        <div>{{ form.symptom_name }}</div>
+        <span>{{ error }}</span>
+        <div>
+            <button type="submit" class="common-button">Сохранить изменения</button>
         </div>
     </form>
 {% endblock %}

@@ -1,20 +1,15 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <p></p>
-    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <div class="content-container">
         <p></p>
         <h2> Вы уверены, что хотите удалить запись о болезни "{{disease.disease_name}}"?</h2>
-
-        <div class="flex-container">
-            <form method="post" action="{% url 'delete_disease' pk=disease.pk %}">
-                {% csrf_token %}
-                <button type="submit" class="accept-button">Подтвердить</button>
-                <a href="{% url 'diseases' %}" class="accept-button">Отмена</a>
-            </form>
-        </div>
     </div>
-
+    <form method="post" action="{% url 'delete_disease' pk=disease.disease_id %}">
+                {% csrf_token %}
+                <button type="submit" class="common-button accept-button">Подтвердить</button>
+    </form>
     <script>
         function confirmDelete() {
             if (confirm('Вы точно хотите удалить запись об этой болезни?')) {

@@ -3,11 +3,14 @@ from django.db import models
 
 class Diseases(models.Model):
     disease_id = models.AutoField(primary_key=True)
-    disease_name = models.CharField(unique=True, max_length=255, blank=True, null=True)
-    disease_description = models.TextField(blank=True, null=True)
+    disease_name = models.CharField(unique=True, max_length=255, blank=False, null=False)
+    disease_description = models.TextField(blank=False, null=False)
 
     def __str__(self):
         return self.disease_name
+
+    def get_absolute_url(self):
+        return f'/disease/{self.disease_id}'
 
     class Meta:
         verbose_name = 'Болезнь'
@@ -18,10 +21,14 @@ class Diseases(models.Model):
 
 class Symptoms(models.Model):
     symptom_id = models.AutoField(primary_key=True)
-    symptom_name = models.CharField(unique=True, max_length=255, blank=True, null=True)
+    symptom_name = models.CharField(unique=True, max_length=255, blank=False, null=False)
 
     def __str__(self):
         return self.symptom_name
+
+    @staticmethod
+    def get_absolute_url():
+        return f'/symptoms/'
 
     class Meta:
         verbose_name = 'Симптом'
@@ -47,12 +54,15 @@ class DiseaseSymptomLink(models.Model):
 
 class Medications(models.Model):
     medication_id = models.AutoField(primary_key=True)
-    medication_name = models.CharField(max_length=255, blank=True, null=True)
-    expiration_date = models.DateField(blank=True, null=True)
-    medication_description = models.TextField(blank=True, null=True)
+    medication_name = models.CharField(max_length=255, blank=False, null=False)
+    expiration_date = models.DateField(blank=False, null=False)
+    medication_description = models.TextField(blank=False, null=False)
 
     def __str__(self):
         return self.medication_name
+
+    def get_absolute_url(self):
+        return f'/medication/{self.medication_id}'
 
     class Meta:
         verbose_name = 'Лекарство'

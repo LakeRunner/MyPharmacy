@@ -1,27 +1,14 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <p></p>
-    <a href="{% url 'home' %}" class="home-button">Вернуться на главную</a>
-    <form method="post" action="{% url 'edit_medication' pk=medication.pk %}">
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
+    <form method="post" action="{% url 'edit_medication' pk=object.pk %}">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="medication_name">Название лекарства:</label>
-            <input type="text" id="medication_name" name="medication_name" value="{{ medication.medication_name }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="medication_description">Описание лекарства:</label>
-            <textarea id="medication_description" name="medication_description" rows="5" required>{{ medication.medication_description }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="expiration_date">Срок годности:</label>
-            <input type="date" id="expiration_date" name="expiration_date" value="{{ medication.expiration_date|date:'Y-m-d' }}" required>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="accept-button">Сохранить изменения</button>
-            <a href="{% url 'medications' %}" class="accept-button">Отменить</a>
-        </div>
+        {% csrf_token %}
+        <div>{{ form.medication_name }}</div>
+        <div>{{ form.medication_description }}</div>
+        <div>{{ form.expiration_date }}</div>
+        <span>{{ form.error }}</span>
+        <div><button type="submit" class="common-button">Сохранить изменения</button></div>
     </form>
 {% endblock %}
