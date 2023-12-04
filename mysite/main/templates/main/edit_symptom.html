@@ -4,7 +4,7 @@
     <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <form method="post" action="{% url 'edit_symptom' pk=object.pk %}">
         {% csrf_token %}
-        <div>{{ form.symptom_name }}</div>
+        <div>{{ form.symptom_name|escape }}</div>
         <span>{{ error }}</span>
         <div>
             <button type="submit" class="common-button">Сохранить изменения</button>

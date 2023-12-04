@@ -4,9 +4,9 @@
     <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <form method="post" action="{% url 'add_medication' %}">
         {% csrf_token %}
-        <div>{{ form.medication_name }}</div>
-        <div>{{ form.medication_description }}</div>
-        <div>{{ form.expiration_date }}</div>
+        <div>{{ form.medication_name|escape }}</div>
+        <div>{{ form.medication_description|escape }}</div>
+        <div>{{ form.expiration_date|escape }}</div>
         <span>{{ form.error }}</span>
         <div><button type="submit" class="common-button">Сохранить запись</button></div>
     </form>

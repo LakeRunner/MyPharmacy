@@ -4,8 +4,8 @@
     <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <form class="form-group" method="post" action="{% url 'add_disease' %}">
         {% csrf_token %}
-        <div>{{ form.disease_name }}</div>
-        <div>{{ form.disease_description }}</div>
+        <div>{{ form.disease_name|escape }}</div>
+        <div>{{ form.disease_description|escape }}</div>
         <span>{{ error }}</span>
         <div class="form-group">
             <button type="submit" class="common-button">Сохранить запись</button>
