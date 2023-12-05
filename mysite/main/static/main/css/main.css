@@ -4,11 +4,33 @@
 }
 
 .content-container {
-    margin: 14px;
+    margin: 12px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 27px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+form {
+    margin: 10px 10px 0;
+    width: auto;
+}
+
+input, select, textarea {
+    margin-bottom: 15px;
+    font-size: 27px;
+    min-width: 30px;
+    width: 30%;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
 .description {
     font-size: 20px;
+    margin: 0 0 30px;
 }
 
 body {
@@ -29,6 +51,7 @@ header {
 }
 
 header h1 {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -36,7 +59,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 70vh; /* 100% высоты видимой области экрана */
+    height: 70vh;
 }
 
 nav ul {
@@ -47,11 +70,17 @@ nav ul {
 }
 
 nav ul li:first-child {
-    margin-left: -4%; /* Добавляем отрицательное значение для выравнивания самой левой кнопки */
+    margin-left: -4%;
 }
 
 nav ul li {
     margin-right: 4%;
+}
+
+ul {
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 20px;
 }
 
 nav a {
@@ -59,8 +88,8 @@ nav a {
     color: var(--primary-color);
     font-weight: bold;
     font-size: 24px;
-    width: 170px; /* Ширина квадрата */
-    height: 170px; /* Высота квадрата */
+    width: 170px;
+    height: 170px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,12 +103,14 @@ nav a:hover {
     color: var(--secondary-color);
 }
 
-h2 {
-    margin-top: 20px;
+h1 {
+    font-size: 28px;
+    margin: 0;
 }
 
-form {
-    margin-top: 10px;
+h2 {
+    margin: 0;
+    font-size: 27px;
 }
 
 table {
@@ -87,58 +118,124 @@ table {
     border-collapse: collapse;
     width: 60%;
     margin: 0 auto;
+    border: none;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 5px;
-    text-align: left;
-}
-
-th {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    text-align: center;
+    border: none;
 }
 
 td:first-child {
     width: 5%;
 }
 
+td:nth-child(2) {
+    width: 35%;
+}
+
 td:nth-child(3) {
-    width: 200px;
+    width: 25%;
+}
+
+td:nth-child(4) {
+    width: 35%;
+}
+
+tr {
+    border-bottom: 1px solid #666;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-bottom: none;
 }
 
 tr:hover td {
     background-color: #e0e0e0;
 }
 
-.return-home {
-    display: inline-block;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: #fff;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    border: 1px solid var(--primary-color);
-    border-radius: 4px;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-}
-
-.return-home:hover {
-    background-color: #fff;
-    color: var(--primary-color);
-}
-
 a {
+    color: var(--primary-color);
     text-decoration: none;
-    color: #0066cc;
 }
 
 a:hover {
     text-decoration: none;
-    color: #004080;
+}
+
+.common-button {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.common-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.change-button,
+.delete-button,
+.home-button,
+.add-button {
+    padding: 10px 10px 10px 30px;
+}
+
+.change-button,
+.delete-button {
+    text-align: right;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.home-button {
+    margin-left: 12px;
+    margin-right: 0px;
+    background-image: url('../img/house.png');
+}
+
+.home-button:hover {
+    background-image: url('../img/house_active.png');
+}
+
+.add-button {
+    margin-left: 21px;
+    background-image: url('../img/plus.png');
+}
+
+.add-button:hover {
+    background-image: url('../img/plus_active.png');
+}
+
+.change-button {
+    background-image: url('../img/pencil.png');
+}
+
+.change-button:hover {
+    background-image: url('../img/pencil_active.png');
+}
+
+.delete-button {
+    background-image: url('../img/garbage.png');
+}
+
+.delete-button:hover {
+    background-image: url('../img/garbage_active.png');
 }

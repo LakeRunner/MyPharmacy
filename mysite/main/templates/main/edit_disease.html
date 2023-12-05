@@ -1,0 +1,14 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
+    <form method="post" action="{% url 'edit_disease' pk=object.pk %}">
+        {% csrf_token %}
+        <div>{{ form.disease_name|escape }}</div>
+        <div>{{ form.disease_description|escape }}</div>
+        <span>{{ error }}</span>
+        <div class="form-group">
+            <button type="submit" class="common-button">Сохранить изменения</button>
+        </div>
+    </form>
+{% endblock %}

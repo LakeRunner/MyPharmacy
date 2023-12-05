@@ -2,8 +2,8 @@
 {% block content %}
     <p></p>
     <div class="content-container">
-        <h1>{{ name }}</h1>
-        <p class="description">{{ description }}</p>
+        <h1>{{ disease.disease_name }}</h1>
+        <p class="description">{{ disease.disease_description }}</p>
 
         <h2>Сопутствующие симптомы:</h2>
         <ul>
@@ -19,5 +19,4 @@
             {% endfor %}
         </ul>
     </div>
-    <a href="{% url 'diseases' %}" class="return-home">Назад</a>
 {% endblock %}

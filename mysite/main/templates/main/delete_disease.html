@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <p></p>
+    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
+    <div class="content-container">
+        <p></p>
+        <h2> Вы уверены, что хотите удалить запись о болезни "{{disease.disease_name}}"?</h2>
+    </div>
+    <form method="post" action="{% url 'delete_disease' pk=disease.disease_id %}">
+                {% csrf_token %}
+                <button type="submit" class="common-button accept-button">Подтвердить</button>
+    </form>
+    <script>
+        function confirmDelete() {
+            if (confirm('Вы точно хотите удалить запись об этой болезни?')) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '{% url "delete_disease" pk=disease.pk %}', true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message);
+                        window.location.href = '{% url "diseases" %}';
+                    } else {
+                        alert('Произошла ошибка при удалении болезни.');
+                    }
+                };
+                xhr.onerror = function() {
+                    alert('Произошла ошибка при удалении болезни.');
+                };
+                xhr.send();
+            }
+        }
+    </script>
+{% endblock %}
