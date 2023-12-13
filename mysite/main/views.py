@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView, UpdateView, DeleteView
 from .forms import *
 
@@ -7,23 +7,19 @@ class MedicationDetailView(DetailView):
     model = Medications
     template_name = 'main/medication.html'
     context_object_name = 'medication'
-    title = 'Информация о лекарстве'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
 
 class MedicationUpdateView(UpdateView):
     model = Medications
     template_name = 'main/edit_medication.html'
-    title = 'Изменить лекарство'
     form_class = MedicationForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
 
@@ -49,7 +45,6 @@ class DiseaseDetailView(DetailView):
     model = Diseases
     template_name = 'main/disease.html'
     context_object_name = 'disease'
-    title = 'Информация о лекарстве'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,7 +53,6 @@ class DiseaseDetailView(DetailView):
         med = set(link.medication.medication_name for link in medication_links)
         symptom_links = DiseaseSymptomLink.objects.filter(disease__disease_id=disease_id)
         sym = [link.symptom.symptom_name for link in symptom_links]
-        context['title'] = 'Информация о болезни'
         context['medications'] = med
         context['symptoms'] = sym
         return context
@@ -67,25 +61,21 @@ class DiseaseDetailView(DetailView):
 class DiseaseUpdateView(UpdateView):
     model = Diseases
     template_name = 'main/edit_disease.html'
-    title = 'Изменить болезнь'
     form_class = DiseaseForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
 
 class DiseaseDeleteView(DeleteView):
     model = Diseases
     template_name = 'main/delete_disease.html'
-    title = 'Удалить болезнь'
     context_object_name = 'disease'
     success_url = '/diseases/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -98,25 +88,21 @@ class DiseaseDeleteView(DeleteView):
 class SymptomUpdateView(UpdateView):
     model = Symptoms
     template_name = 'main/edit_symptom.html'
-    title = 'Изменить симптом'
     form_class = SymptomForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
 
 class SymptomDeleteView(DeleteView):
     model = Symptoms
     template_name = 'main/delete_symptom.html'
-    title = 'Удалить симптом'
     context_object_name = 'symptom'
     success_url = '/symptoms/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.title
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -126,18 +112,22 @@ class SymptomDeleteView(DeleteView):
 
 
 def index(request):
-    data = {
-        'title': 'Домашняя аптечка'
-    }
-    return render(request, 'main/index.html', data)
+    return render(request, 'main/index.html')
 
 
 def medications(request):
     med = list(enumerate(Medications.objects.all(), start=1))
+    form = SearchForm(request.GET)
     data = {
-        'title': 'Лекарства',
         'medications': med,
+        'form': form
     }
+    if form.is_valid() and form.cleaned_data['search']:
+        search = form.cleaned_data['search']
+        searched = list(enumerate(Medications.objects.filter(medication_name__icontains=search), start=1))
+        data['medications'] = searched
+        data['search'] = search
+        return render(request, 'main/searched_medications.html', data)
     return render(request, 'main/medications.html', data)
 
 
@@ -162,10 +152,17 @@ def add_medication(request):
 
 def diseases(request):
     dis = list(enumerate(Diseases.objects.all(), start=1))
+    form = SearchForm(request.GET)
     data = {
-        'title': 'Болезни',
         'diseases': dis,
+        'form': form
     }
+    if form.is_valid() and form.cleaned_data['search']:
+        search = form.cleaned_data['search']
+        searched = list(enumerate(Diseases.objects.filter(disease_name__icontains=search), start=1))
+        data['diseases'] = searched
+        data['search'] = search
+        return render(request, 'main/searched_diseases.html', data)
     return render(request, 'main/diseases.html', data)
 
 
@@ -190,10 +187,17 @@ def add_disease(request):
 
 def symptoms(request):
     sym = list(enumerate(Symptoms.objects.all(), start=1))
+    form = SearchForm(request.GET)
     data = {
-        'title': 'Симптомы',
         'symptoms': sym,
+        'form': form
     }
+    if form.is_valid() and form.cleaned_data['search']:
+        search = form.cleaned_data['search']
+        searched = list(enumerate(Symptoms.objects.filter(symptom_name__icontains=search), start=1))
+        data['symptoms'] = searched
+        data['search'] = search
+        return render(request, 'main/searched_symptoms.html', data)
     return render(request, 'main/symptoms.html', data)
 
 

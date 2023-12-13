@@ -4,14 +4,12 @@
     <div class="content-container">
         <h1>{{ disease.disease_name }}</h1>
         <p class="description">{{ disease.disease_description }}</p>
-
         <h2>Сопутствующие симптомы:</h2>
         <ul>
             {% for symptom in symptoms %}
                 <li>{{ symptom }}</li>
             {% endfor %}
         </ul>
-
         <h2>Лекарства от этой болезни:</h2>
         <ul>
             {% for medication in medications %}

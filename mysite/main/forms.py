@@ -1,5 +1,11 @@
 from django.forms import ModelForm, TextInput, Textarea, DateInput
 from .models import *
+from django import forms
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False,
+                             label='', widget=TextInput(attrs={'placeholder': 'Поиск'}))
 
 
 class MedicationForm(ModelForm):

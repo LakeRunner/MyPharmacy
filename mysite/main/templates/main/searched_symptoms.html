@@ -1,11 +1,7 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <div>
-        <h1 class="statistic_information">Количество записей: {{ symptoms|length }}</h1>
-        <form class="statistic_information" method="get" onsubmit="event.preventDefault(); submitForm();">
-                {{ form.search }}
-        </form>
-        <a href="{% url 'add_symptom' %}" class="common-button add-button">Добавить</a>
+        <h1 class="statistic_information">По запросу "{{ search }}" найдено записей: {{ symptoms|length }}</h1>
         <table border="1">
             <thead>
                 <tr>
@@ -28,9 +24,4 @@
             </tbody>
         </table>
     </div>
-    <script>
-        function submitForm() {
-            document.querySelector('form').submit();
-        }
-    </script>
 {% endblock %}

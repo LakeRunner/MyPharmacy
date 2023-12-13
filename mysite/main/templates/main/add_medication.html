@@ -1,7 +1,6 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <p></p>
-    <a href="{% url 'home' %}" class="common-button home-button">Вернуться на главную</a>
     <form method="post" action="{% url 'add_medication' %}">
         {% csrf_token %}
         <div>{{ form.medication_name|escape }}</div>
