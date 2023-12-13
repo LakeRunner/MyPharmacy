@@ -14,10 +14,10 @@
     </header>
     <nav class="main-menu">
         <ul>
-            <li><a href="{% url 'home' %}">Главная</a></li>
-            <li><a href="{% url 'medications' %}">Лекарства</a></li>
-            <li><a href="{% url 'diseases' %}">Болезни</a></li>
-            <li><a href="{% url 'symptoms' %}">Симптомы</a></li>
+            <li><a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Главная</a></li>
+            <li><a class="{% if request.path == '/medications/' %}active{% endif %}" href="{% url 'medications' %}">Лекарства</a></li>
+            <li><a class="{% if request.path == '/diseases/' %}active{% endif %}" href="{% url 'diseases' %}">Болезни</a></li>
+            <li><a class="{% if request.path == '/symptoms/' %}active{% endif %}" href="{% url 'symptoms' %}">Симптомы</a></li>
         </ul>
     </nav>
     {% block content%}

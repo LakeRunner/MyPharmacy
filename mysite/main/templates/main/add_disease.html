@@ -1,12 +1,11 @@
 {% extends 'main/layout.html' %}
 {% block content %}
-    <p></p>
     <form class="form-group" method="post" action="{% url 'add_disease' %}">
         {% csrf_token %}
-        <div>{{ form.disease_name|escape }}</div>
-        <div>{{ form.disease_description|escape }}</div>
-        <span>{{ error }}</span>
-        <div class="form-group">
+        <div class="centered-content">{{ form.disease_name|escape }}</div>
+        <div class="centered-content">{{ form.disease_description|escape }}</div>
+        <span class="centered-content">{{ error }}</span>
+        <div class="centered-content">
             <button type="submit" class="common-button">Сохранить запись</button>
         </div>
     </form>

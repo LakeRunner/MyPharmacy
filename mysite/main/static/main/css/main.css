@@ -3,13 +3,23 @@
     --secondary-color: #fff;
 }
 
-.statistic_information {
+.page-content-container {
+    border-radius: 16px;
+    background-color: var(--secondary-color);
+    padding: 20px;
     margin-left: 20%;
-    margin-bottom: 5px;
+    margin-right: 20%;
+    margin-bottom: 20px;
+    min-width: 600px;
 }
 
-body {
-    background-color: red;
+.centered-content {
+    text-align: center;
+}
+
+.statistic_information {
+    margin-bottom: 5px;
+    margin-left: 0%;
 }
 
 .main-menu {
@@ -50,6 +60,12 @@ li {
     transition: color 0.3s;
 }
 
+.main-menu a.active {
+    color: #ffc107;
+    text-decoration: underline;
+    border-color: #ffc107;
+}
+
 .main-menu a:hover {
     color: #ffc107;
 }
@@ -66,8 +82,7 @@ label {
 }
 
 form {
-    margin: 10px 10px 0;
-    width: auto;
+    width: 100%;
 }
 
 input, select, textarea {
@@ -75,7 +90,7 @@ input, select, textarea {
     margin-bottom: 15px;
     font-size: 27px;
     min-width: 30px;
-    width: 30%;
+    width: 41.5%;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -88,10 +103,8 @@ input, select, textarea {
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #b1d8fc;
     margin: 0;
-    padding: 0;
 }
 
 header {
@@ -120,7 +133,7 @@ h2 {
 table {
     font-size: 20px;
     border-collapse: collapse;
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
     border: none;
 }
@@ -210,7 +223,6 @@ a:hover {
 
 .add-button {
     margin-top: 5px;
-    margin-left: 20%;
     background-image: url('../img/plus.png');
 }
 
