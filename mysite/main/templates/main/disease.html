@@ -1,19 +1,30 @@
 {% extends 'main/layout.html' %}
 {% block content %}
-    <div class="content-container">
-        <h1>{{ disease.disease_name }}</h1>
-        <p class="description">{{ disease.disease_description }}</p>
-        <h2>Сопутствующие симптомы:</h2>
-        <ul>
-            {% for symptom in symptoms %}
-                <li>{{ symptom }}</li>
-            {% endfor %}
-        </ul>
-        <h2>Лекарства от этой болезни:</h2>
-        <ul>
-            {% for medication in medications %}
-                <li>{{ medication }}</li>
-            {% endfor %}
-        </ul>
+    <div class="page-content-container">
+        <div class="centered-content">
+            <h1>Информация о болезни</h1>
+        </div>
+        <h2>Название</h2>
+        <div class="description">{{ disease.disease_name }}</div>
+        <h2>Описание</h2>
+        <div class="description">{{ disease.disease_description }}</div>
+        <h2>Сопутствующие симптомы</h2>
+        <div class="description">
+            <ul>
+                {% for symptom in symptoms %}
+                    <li>{{ symptom }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h2>Лекарства от этой болезни</h2>
+        <div class="description">
+            <ul>
+                {% for medication in medications %}
+                    <li>{{ medication }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{% url 'edit_disease' disease.disease_id %}" class="common-button change-button">Изменить</a>
+        <a href="{% url 'delete_disease' disease.disease_id %}" class="common-button delete-button">Удалить</a>
     </div>
 {% endblock %}

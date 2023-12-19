@@ -10,7 +10,7 @@ class Diseases(models.Model):
         return self.disease_name
 
     def get_absolute_url(self):
-        return f'/disease/{self.disease_id}'
+        return f'/diseases/{self.disease_id}'
 
     class Meta:
         verbose_name = 'Болезнь'
@@ -26,9 +26,8 @@ class Symptoms(models.Model):
     def __str__(self):
         return self.symptom_name
 
-    @staticmethod
-    def get_absolute_url():
-        return f'/symptoms/'
+    def get_absolute_url(self):
+        return f'/symptoms/{self.symptom_id}'
 
     class Meta:
         verbose_name = 'Симптом'
@@ -62,7 +61,7 @@ class Medications(models.Model):
         return self.medication_name
 
     def get_absolute_url(self):
-        return f'/medication/{self.medication_id}'
+        return f'/medications/{self.medication_id}'
 
     class Meta:
         verbose_name = 'Лекарство'

@@ -5,7 +5,8 @@ from django import forms
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False,
-                             label='', widget=TextInput(attrs={'placeholder': 'Поиск'}))
+                             label='', widget=TextInput(attrs={'placeholder': 'Поиск',
+                                                               'class': 'search-input'}))
 
 
 class MedicationForm(ModelForm):

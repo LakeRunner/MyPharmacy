@@ -33,7 +33,6 @@ nav {
 
 ul {
     margin-top: 0px;
-    margin-bottom: 30px;
 }
 
 .main-menu ul {
@@ -95,6 +94,22 @@ input, select, textarea {
     box-sizing: border-box;
 }
 
+input:not(:focus),
+textarea:not(:focus),
+select:not(:focus){
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border: 2px solid #007BFF;
+}
+
+.search-input {
+    border-radius: 100px;
+}
+
 .description {
     font-size: 20px;
     margin: 0 0 30px;
@@ -150,11 +165,11 @@ td:first-child {
 }
 
 td:nth-child(2) {
-    width: 35%;
+    width: 20%;
 }
 
 td:nth-child(3) {
-    width: 25%;
+    width: 40%;
 }
 
 td:nth-child(4) {
@@ -239,11 +254,23 @@ a:hover {
 }
 
 .delete-button {
+    background-color: red;
+    border-color: red;
     background-image: url('../img/garbage.png');
 }
 
 .delete-button:hover {
+    color: red;
     background-image: url('../img/garbage_active.png');
+}
+
+.accept-button {
+    background-color: green;
+    border-color: green;
+}
+
+.accept-button:hover {
+    color: green;
 }
 
 .name {

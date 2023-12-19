@@ -10,6 +10,10 @@ class MedicationDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        medication_id = self.kwargs.get('pk')
+        disease_links = MedicationDiseaseLink.objects.filter(medication__medication_id=medication_id)
+        dis = set(link.disease.disease_name for link in disease_links)
+        context['diseases'] = dis
         return context
 
 
@@ -85,6 +89,20 @@ class DiseaseDeleteView(DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
+class SymptomDetailView(DetailView):
+    model = Symptoms
+    template_name = 'main/symptom.html'
+    context_object_name = 'symptom'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        symptom_id = self.kwargs.get('pk')
+        disease_links = DiseaseSymptomLink.objects.filter(symptom__symptom_id=symptom_id)
+        dis = set(link.disease.disease_name for link in disease_links)
+        context['diseases'] = dis
+        return context
+
+
 class SymptomUpdateView(UpdateView):
     model = Symptoms
     template_name = 'main/edit_symptom.html'
@@ -124,7 +142,7 @@ def medications(request):
     }
     if form.is_valid() and form.cleaned_data['search']:
         search = form.cleaned_data['search']
-        searched = list(enumerate(Medications.objects.filter(medication_name__icontains=search), start=1))
+        searched = list(enumerate(Medications.objects.filter(medication_name__istartswith=search)))
         data['medications'] = searched
         data['search'] = search
         return render(request, 'main/searched_medications.html', data)
@@ -159,7 +177,7 @@ def diseases(request):
     }
     if form.is_valid() and form.cleaned_data['search']:
         search = form.cleaned_data['search']
-        searched = list(enumerate(Diseases.objects.filter(disease_name__icontains=search), start=1))
+        searched = list(enumerate(Diseases.objects.filter(disease_name__istartswith=search)))
         data['diseases'] = searched
         data['search'] = search
         return render(request, 'main/searched_diseases.html', data)
@@ -194,7 +212,7 @@ def symptoms(request):
     }
     if form.is_valid() and form.cleaned_data['search']:
         search = form.cleaned_data['search']
-        searched = list(enumerate(Symptoms.objects.filter(symptom_name__icontains=search), start=1))
+        searched = list(enumerate(Symptoms.objects.filter(symptom_name__istartswith=search)))
         data['symptoms'] = searched
         data['search'] = search
         return render(request, 'main/searched_symptoms.html', data)
