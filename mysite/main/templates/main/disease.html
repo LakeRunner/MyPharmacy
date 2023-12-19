@@ -12,7 +12,7 @@
         <div class="description">
             <ul>
                 {% for symptom in symptoms %}
-                    <li>{{ symptom }}</li>
+                    <li><a class="name" href="{% url 'symptom' symptom.symptom_id %}">{{ symptom.symptom_name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -24,7 +24,9 @@
                 {% endfor %}
             </ul>
         </div>
-        <a href="{% url 'edit_disease' disease.disease_id %}" class="common-button change-button">Изменить</a>
-        <a href="{% url 'delete_disease' disease.disease_id %}" class="common-button delete-button">Удалить</a>
+        <div class="centered-content">
+            <a href="{% url 'edit_disease' disease.disease_id %}" class="common-button change-button">Изменить</a>
+            <a href="{% url 'delete_disease' disease.disease_id %}" class="common-button delete-button">Удалить</a>
+        </div>
     </div>
 {% endblock %}

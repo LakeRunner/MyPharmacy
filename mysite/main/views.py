@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, UpdateView, DeleteView
 from .forms import *
+from datetime import datetime
 
 
 class MedicationDetailView(DetailView):
@@ -12,7 +13,7 @@ class MedicationDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         medication_id = self.kwargs.get('pk')
         disease_links = MedicationDiseaseLink.objects.filter(medication__medication_id=medication_id)
-        dis = set(link.disease.disease_name for link in disease_links)
+        dis = [link.disease for link in disease_links]
         context['diseases'] = dis
         return context
 
@@ -56,7 +57,7 @@ class DiseaseDetailView(DetailView):
         medication_links = MedicationDiseaseLink.objects.filter(disease__disease_id=disease_id)
         med = set(link.medication.medication_name for link in medication_links)
         symptom_links = DiseaseSymptomLink.objects.filter(disease__disease_id=disease_id)
-        sym = [link.symptom.symptom_name for link in symptom_links]
+        sym = [link.symptom for link in symptom_links]
         context['medications'] = med
         context['symptoms'] = sym
         return context
@@ -98,7 +99,7 @@ class SymptomDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         symptom_id = self.kwargs.get('pk')
         disease_links = DiseaseSymptomLink.objects.filter(symptom__symptom_id=symptom_id)
-        dis = set(link.disease.disease_name for link in disease_links)
+        dis = [link.disease for link in disease_links]
         context['diseases'] = dis
         return context
 
@@ -134,18 +135,31 @@ def index(request):
 
 
 def medications(request):
-    med = list(enumerate(Medications.objects.all(), start=1))
+    med = list(enumerate(Medications.objects.all()))
     form = SearchForm(request.GET)
+    table_title = 'Количество записей: ' + str(len(med))
     data = {
         'medications': med,
-        'form': form
+        'form': form,
+        'table_title': table_title
     }
-    if form.is_valid() and form.cleaned_data['search']:
+    if request.GET and form.is_valid():
         search = form.cleaned_data['search']
-        searched = list(enumerate(Medications.objects.filter(medication_name__istartswith=search)))
-        data['medications'] = searched
-        data['search'] = search
-        return render(request, 'main/searched_medications.html', data)
+        date_range = form.cleaned_data['date_range']
+        if search or date_range:
+            medications_filtered = Medications.objects.all()
+            data['table_title'] = 'По запросу'
+            if search:
+                medications_filtered = medications_filtered.filter(medication_name__istartswith=search)
+                data['table_title'] += " \"" + search + "\" "
+            if date_range:
+                start_date_str, end_date_str = date_range.split(' - ')
+                start_date = datetime.strptime(start_date_str, '%d.%m.%Y').date()
+                end_date = datetime.strptime(end_date_str, '%d.%m.%Y').date()
+                medications_filtered = medications_filtered.filter(expiration_date__range=[start_date, end_date])
+                data['table_title'] += " от " + start_date_str + ' - ' + end_date_str + " "
+            data['table_title'] += 'записей найдено: ' + str(len(medications_filtered))
+            data['medications'] = list(enumerate(medications_filtered, start=1))
     return render(request, 'main/medications.html', data)
 
 
@@ -162,7 +176,6 @@ def add_medication(request):
         form = MedicationForm()
     data = {
         'error': error,
-        'title': 'Добавить лекарство',
         'form': form
     }
     return render(request, 'main/add_medication.html', data)
@@ -171,16 +184,17 @@ def add_medication(request):
 def diseases(request):
     dis = list(enumerate(Diseases.objects.all(), start=1))
     form = SearchForm(request.GET)
+    table_title = 'Количество записей: ' + str(len(dis))
     data = {
         'diseases': dis,
-        'form': form
+        'form': form,
+        'table_title': table_title
     }
     if form.is_valid() and form.cleaned_data['search']:
         search = form.cleaned_data['search']
-        searched = list(enumerate(Diseases.objects.filter(disease_name__istartswith=search)))
+        searched = list(enumerate(Diseases.objects.filter(disease_name__istartswith=search), start=1))
         data['diseases'] = searched
-        data['search'] = search
-        return render(request, 'main/searched_diseases.html', data)
+        data['table_title'] = 'По запросу "' + search + '" записей найдено: ' + str(len(searched))
     return render(request, 'main/diseases.html', data)
 
 
@@ -197,7 +211,6 @@ def add_disease(request):
         form = DiseaseForm()
     data = {
         'error': error,
-        'title': 'Добавить болезнь',
         'form': form
     }
     return render(request, 'main/add_disease.html', data)
@@ -206,16 +219,17 @@ def add_disease(request):
 def symptoms(request):
     sym = list(enumerate(Symptoms.objects.all(), start=1))
     form = SearchForm(request.GET)
+    table_title = 'Количество записей: ' + str(len(sym))
     data = {
         'symptoms': sym,
-        'form': form
+        'form': form,
+        'table_title': table_title
     }
     if form.is_valid() and form.cleaned_data['search']:
         search = form.cleaned_data['search']
-        searched = list(enumerate(Symptoms.objects.filter(symptom_name__istartswith=search)))
+        searched = list(enumerate(Symptoms.objects.filter(symptom_name__istartswith=search), start=1))
         data['symptoms'] = searched
-        data['search'] = search
-        return render(request, 'main/searched_symptoms.html', data)
+        data['table_title'] = 'По запросу "' + search + '" записей найдено: ' + str(len(searched))
     return render(request, 'main/symptoms.html', data)
 
 
@@ -232,7 +246,6 @@ def add_symptom(request):
         form = SymptomForm()
     data = {
         'error': error,
-        'title': 'Добавить симптом',
         'form': form
     }
     return render(request, 'main/add_symptom.html', data)

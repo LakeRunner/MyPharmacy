@@ -1,10 +1,18 @@
 {% extends 'main/layout.html' %}
 {% block content %}
     <div class="page-content-container">
-        <h1 class="statistic_information">Количество записей: {{ diseases|length }}</h1>
-        <form class="statistic_information" method="get" onsubmit="event.preventDefault(); submitForm();">
-                {{ form.search }}
+        <div class="centered-content">
+            <h1>Фильтры</h1>
+        </div>
+        <form method="get" onsubmit="event.preventDefault(); submitForm();">
+            <div class="centered-content">{{ form.search }}</div>
+            <div class="centered-content">
+                <button type="submit" class="common-button search-button">Найти</button>
+            </div>
         </form>
+    </div>
+    <div class="page-content-container">
+        <h1 class="statistic_information">{{ table_title }}</h1>
         <a href="{% url 'add_disease' %}" class="common-button add-button">Добавить</a>
         <table border="1">
             <thead>
@@ -17,9 +25,9 @@
             <tbody>
                 {% for index, disease in diseases %}
                     <tr>
-                        <td>{{ index }}</td>
-                        <td>{{ disease.disease_id }}</td>
-                        <td><a class="name" href="{% url 'disease' disease.disease_id %}">{{ disease.disease_name }}</a></td>
+                        <td class="td-ds">{{ index }}</td>
+                        <td class="td-ds">{{ disease.disease_id }}</td>
+                        <td class="td-ds"><a class="name" href="{% url 'disease' disease.disease_id %}">{{ disease.disease_name }}</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

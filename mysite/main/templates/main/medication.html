@@ -12,7 +12,7 @@
         <div class="description">
             <ul>
                 {% for disease in diseases %}
-                    <li>{{ disease }}</li>
+                <li><a class="name" href="{% url 'disease' disease.disease_id %}">{{ disease.disease_name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

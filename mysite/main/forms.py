@@ -1,12 +1,19 @@
-from django.forms import ModelForm, TextInput, Textarea, DateInput
+from django.forms import ModelForm, TextInput, NumberInput, Textarea, DateInput
 from .models import *
 from django import forms
 
 
 class SearchForm(forms.Form):
-    search = forms.CharField(max_length=100, required=False,
-                             label='', widget=TextInput(attrs={'placeholder': 'Поиск',
-                                                               'class': 'search-input'}))
+    search = forms.CharField(
+        max_length=100, required=False,
+        label='', widget=TextInput(attrs={'placeholder': 'Название',
+                                          'class': 'search-input'})
+    )
+    date_range = forms.CharField(
+        max_length=23, required=False,
+        label='', widget=forms.TextInput(attrs={'placeholder': 'Дата DD/MM/YYYY - DD/MM/YYYY',
+                                                'class': 'search-input'})
+    )
 
 
 class MedicationForm(ModelForm):
